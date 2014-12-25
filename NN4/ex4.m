@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 %% Machine Learning Online Class - Exercise 4 Neural Network Learning
 
 %  Instructions
@@ -243,7 +242,7 @@ pred = predict(Theta1, Theta2, X);
 fprintf('\nTraining Set Accuracy: %f\n', mean(double(pred == y)) * 100);
 
 
-=======
+%=======
 
 %% Machine Learning Online Class - Exercise 4 Neural Network Learning
 
@@ -486,4 +485,4 @@ pred = predict(Theta1, Theta2, X);
 fprintf('\nTraining Set Accuracy: %f\n', mean(double(pred == y)) * 100);
 
 
->>>>>>> Stashed changes
+%>>>>>>> Stashed changes
