@@ -194,7 +194,7 @@ costFunction = @(p) nnCostFunction(p, ...
 
 % Now, costFunction is a function that takes in only one argument (the
 % neural network parameters)
-[nn_params, cost,i1,costy,xh] = fmincg(costFunction, initial_nn_params, options);
+[nn_params, cost,i1,costy] = fmincg(costFunction, initial_nn_params, options);
 
 % Obtain Theta1 and Theta2 back from nn_params
 Theta1 = reshape(nn_params(1:hidden_layer_size * (input_layer_size + 1)), ...
@@ -213,9 +213,9 @@ xlabel('Iterations');
 %fprintf('Program paused. Press enter to continue.\n');
 %pause;
 hold on;
-figure;
-plot(xh')
-hold on;
+%figure;
+%plot(xh')
+%hold on;
 
 %fprintf('Program paused. Press enter to continue.\n');
 
