@@ -1,18 +1,6 @@
-%% Machine Learning Online Class - Exercise 4 Neural Network Learning
-
-%  Instructions
-%  ------------
-% 
-%  This file contains code that helps you get started on the
-%  linear exercise. You will need to complete the following functions 
-%  in this exericse:
 %
-%     sigmoidGradient.m
-%     randInitializeWeights.m
-%     nnCostFunction.m
-%
-%  For this exercise, you will not need to change any code in this file,
-%  or any other files other than those mentioned above.
+% This version contains a weight visualization portion which plots the
+% weight values over multiple iterations to see how they change.
 %
 
 %% Initialization
@@ -24,25 +12,10 @@ hidden_layer_size = 25;   % 25 hidden units
 num_labels = 10;          % 10 labels, from 1 to 10   
                           % (note that we have mapped "0" to label 10)
 
-%% =========== Part 1: Loading and Visualizing Data =============
-%  We start the exercise by first loading and visualizing the dataset. 
-%  You will be working with a dataset that contains handwritten digits.
-%
-
-% Load Training Data
-fprintf('Loading and Visualizing Data ...\n')
-
-load('ex4data1.mat');
+%% =========== Part 1: Loading Data =============
+%  
+load('ex4data1.mat');  %this is where the data is from
 m = size(X, 1);
-
-% Randomly select 100 data points to display from the set of data points
-%sel = randperm(size(X, 1),100);  %randperm selects k from 1-n interger
-
-%displayData(X(sel, :));
-
-%fprintf('Program paused. Press enter to continue.\n');
-%pause;
-
 
 %% ================ Part 2: Loading Parameters ================
 % In this part of the exercise, we load some pre-initialized 
@@ -78,9 +51,6 @@ J = nnCostFunction(nn_params, input_layer_size, hidden_layer_size, ...
 
 fprintf(['Cost at parameters (loaded from ex4weights): %f '...
          '\n(this value should be about 0.287629)\n'], J);
-
-%fprintf('\nProgram paused. Press enter to continue.\n');
-%pause;
 
 %% =============== Part 4: Implement Regularization ===============
 %  Once your cost function implementation is correct, you should now
