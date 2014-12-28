@@ -20,7 +20,7 @@ clear ; close all; clc
 
 %% Setup the parameters you will use for this exercise
 input_layer_size  = 400;  % 20x20 Input Images of Digits
-hidden_layer_size = 25;   % 25 hidden units
+hidden_layer_size = 35;   % # hidden units [also changes loading params] 
 num_labels = 10;          % 10 labels, from 1 to 10   
                           % (note that we have mapped "0" to label 10)
 
@@ -46,12 +46,23 @@ m = size(X, 1);
 
 %% ================ Part 2: Loading Parameters ================
 % In this part of the exercise, we load some pre-initialized 
-% neural network parameters.
+% neural network parameters.  The variables addnThet1 and addnThet2 are
+% used to increase the size of the hidden layer beyond the standard 25
+% neurons.  If these are changed, then the hidden layer size above would
+% also need to be changed.
 
 fprintf('\nLoading Saved Neural Network Parameters ...\n')
 
 % Load the weights into variables Theta1 and Theta2
 load('ex4weights.mat');
+
+addnThet1=.2*randn(hidden_layer_size-25,401); %this creates the additional initial values for
+% the parameters for the first layer in the network in order to increase
+% the size beyond just 25 hidden layers
+addnThet2=randn(10,hidden_layer_size-25); %creates additional initial values for layer 2
+
+Theta1=[Theta1; addnThet1]; %this adds the new neurons on for the hidden layer
+Theta2=[Theta2 addnThet2]; %this adds the new neurons on
 
 % Unroll parameters 
 nn_params = [Theta1(:) ; Theta2(:)];
