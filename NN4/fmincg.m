@@ -1,4 +1,4 @@
-function [X, fX, i,costy] = fmincg(f, X, options, P1, P2, P3, P4, P5)
+function [X, fX, i, costy, xh] = fmincg(f, X, options, P1, P2, P3, P4, P5)
 % Minimize a continuous differentialble multivariate function. Starting point
 % is given by "X" (D by 1), and the function named in the string "f", must
 % return a function value and a vector of partial derivatives. The Polack-
@@ -79,13 +79,13 @@ i = i + (length<0);                                            % count epochs?!
 s = -df1;                                        % search direction is steepest
 d1 = -s'*s;                                                 % this is the slope
 z1 = red/(1-d1);                                  % initial step is red/(|s|+1)
-%xh=X;
+xh=X; % m: initialize X history, which is really weight history matrix
 while i < abs(length)                                      % while not finished
   i = i + (length>0);                                      % count iterations?!
 
   X0 = X; f0 = f1; df0 = df1;                   % make a copy of current values
- % xh=[xh,X]; %trying to build up a running history of all the weights, where 
-            % each column is one iteration.
+  xh=[xh,X]; %trying to build up a running history of all the weights, where 
+             % each column is one iteration.
   X = X + z1*s;                                             % begin line search
   [f2 df2] = eval(argstr);
   i = i + (length<0);                                          % count epochs?!
