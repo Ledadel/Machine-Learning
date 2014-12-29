@@ -22,7 +22,7 @@ W = zeros(L_out, 1 + L_in);
 
 epsilon_init = 0.12;
 
-W = rand(L_out, 1+L_in)*2*epsilon_init - epsilon_init;
+W = .2*randn(L_out, 1+L_in)*2*epsilon_init - epsilon_init;
 
 
 
