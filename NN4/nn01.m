@@ -3,26 +3,19 @@
 
 %   ( ^_^ )
 
-
 %% Initialization
 clear ; close all; clc  % close everything else up
 
 %% Setup the parameters (weights)
 input_layer_size  = 400;  % 20x20 Input Images of Digits
-hidden_layer_size = 20;   % # hidden units [also changes loading params] 
+hidden_layer_size = 30;   % # hidden units [also changes loading params] 
 num_labels = 10;          % 10 labels, from 1 to 10   
                           % (note that we have mapped "0" to label 10)
 
-
 %% ================ Loading Parameters ================
 
-load('ex4data1.mat');
-m = size(X, 1);
-
-% Load the weights into variables Theta1 and Theta2
-load('ex4weights.mat');
-
-
+load('ex4data1.mat');  % training digits in 20x20pixel images
+m = size(X, 1); % size of ex4data.mat number of examples
 
 %% ================ Initializing Pameters ================
 %  implment a two
@@ -30,9 +23,7 @@ load('ex4weights.mat');
 %  implementing a function to initialize the weights of the neural network
 %  (randInitializeWeights.m)
 
-%fprintf('\nInitializing Neural Network Parameters ...\n')
-
-
+% Initializing Neural Network Parameters
 initial_Theta1 = randInitializeWeights(input_layer_size,hidden_layer_size);
 initial_Theta2 = randInitializeWeights(hidden_layer_size,num_labels);
 
@@ -46,22 +37,15 @@ figure
 histogram(nn_params')
 hold on;
 
-
-
 %% =================== Training NN ===================
-%  You have now implemented all the code necessary to train a neural 
-%  network. To train your neural network, we will now use "fmincg", which
-%  is a function which works similarly to "fminunc". Recall that these
-%  advanced optimizers are able to train our cost functions efficiently as
-%  long as we provide them with the gradient computations.
+%  These advanced optimizers are able to train our cost functions 
+%  efficiently as long as we provide them with the gradient computations.
 %
 fprintf('\nTraining Neural Network... \n')
 
-%  After you have completed the assignment, change the MaxIter to a larger
-%  value to see how more training helps.
-options = optimset('MaxIter', 100);
+options = optimset('MaxIter', 200);
 %  You should also try different values of lambda
-lambda = 1;
+lambda = 2;  %regularization parameter.
 
 tic;
 % Create "short hand" for the cost function to be minimized
@@ -82,10 +66,7 @@ Theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):en
                  num_labels, (hidden_layer_size + 1));
 
 
-
-
 %% ================= Visualize Weights and Cost Function =================
-
 
 % m: The following will produces a graph of the cost vs iteration
 costy=costy';
@@ -115,7 +96,6 @@ toc
 pred = predict(Theta1, Theta2, X);
 
 fprintf('\nTraining Set Accuracy (based on training set?): %f\n', mean(double(pred == y)) * 100);
-
 
 %=======
 
