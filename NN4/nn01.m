@@ -9,7 +9,7 @@ clear ; close all; clc  % close everything else up
 
 %% Setup the parameters (weights)
 input_layer_size  = 400;  % 20x20 Input Images of Digits
-hidden_layer_size = 30;   % # hidden units [also changes loading params] 
+hidden_layer_size = 20;   % # hidden units [also changes loading params] 
 num_labels = 10;          % 10 labels, from 1 to 10   
                           % (note that we have mapped "0" to label 10)
 
