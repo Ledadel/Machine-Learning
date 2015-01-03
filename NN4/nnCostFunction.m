@@ -100,7 +100,8 @@ reg=lambda/(2*m)*(sumt1sqr+sumt2sqr); %adding and averaging
 J = J + reg; % final cost with regularization
 
 % -------------------------------------------------------------
-%Part 4: Backpropagation Algorithm to find the gradients of the cost function with 
+%%=====Part 4: Backpropagation Algorithm 
+% This find the gradients of the cost function with 
 %respect to the weights:  Theta2_grad and Theta1_grad
 %In the comments, w is used for the weights or theta, C is for the cost function
 %The cross entropy cost function is used which makes dC/dz2 a simpler

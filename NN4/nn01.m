@@ -1,33 +1,32 @@
-% This is a neural net test where we will try to simplify it for
-% understanding how it works.
+% This is a 2 layer neural net with a single hidden layer to classify digits.
 
 %   ( ^_^ )
 
 %% Initialization
 clear ; close all; clc  % close everything else up
 
-%% Setup the parameters (weights)
+%% Define the size of the Network
 input_layer_size  = 400;  % 20x20 Input Images of Digits
-hidden_layer_size = 30;   % # hidden units [also changes loading params] 
-num_labels = 10;          % 10 labels, from 1 to 10   
+hidden_layer_size = 30;   % # hidden units [also changes loading params]
+num_labels = 10;          % 10 labels, from 1 to 10
                           % (note that we have mapped "0" to label 10)
 
-%% ================ Loading Parameters ================
+%% ================ Loading Training Data ==============
 
 load('ex4data1.mat');  % training digits in 20x20pixel images
 m = size(X, 1); % size of ex4data.mat number of examples
 
 %% ================ Initializing Pameters ================
-%  implment a two
-%  layer neural network that classifies digits. You will start by
-%  implementing a function to initialize the weights of the neural network
-%  (randInitializeWeights.m)
+% The function 'randInitializeWeights.m' creates the initial weights of the 
+% neural network including the bias terms.  These are later unrolled into a
+% vector for arguments of functions and plotting.
+
 
 % Initializing Neural Network Parameters
 initial_Theta1 = randInitializeWeights(input_layer_size,hidden_layer_size);
 initial_Theta2 = randInitializeWeights(hidden_layer_size,num_labels);
 
-% Unroll parameters
+% Unroll parameters into vector
 initial_nn_params = [initial_Theta1(:) ; initial_Theta2(:)];
 nn_params=initial_nn_params;  % future function calls use nn_params, so I'm
 % creating this from randomized weights of arbitrary size.
@@ -38,14 +37,15 @@ histogram(nn_params')
 hold on;
 
 %% =================== Training NN ===================
-%  These advanced optimizers are able to train our cost functions 
+%  These advanced optimizers are able to train our cost functions
 %  efficiently as long as we provide them with the gradient computations.
 %
 fprintf('\nTraining Neural Network... \n')
 
-options = optimset('MaxIter', 200);
-%  You should also try different values of lambda
-lambda = 2;  %regularization parameter.
+options = optimset('MaxIter', 200); %do not understand how this works, but 
+%fmincg somehow
+%  Test different values of lambda
+lambda = 10;  %regularization parameter
 
 tic;
 % Create "short hand" for the cost function to be minimized
@@ -73,7 +73,7 @@ cost=cost'; % make vector of cost history vs iteration
 costx=(1:i1)'; % create a vector of x values the number of iterations long
 figure;
 plot(costx,cost, '.')
-ylabel('Cost'); 
+ylabel('Cost');
 xlabel('Iterations');
 hold on;
 
@@ -98,5 +98,3 @@ pred = predict(Theta1, Theta2, X);
 fprintf('\nTraining Set Accuracy (based on training set?): %f\n', mean(double(pred == y)) * 100);
 
 %=======
-
-
