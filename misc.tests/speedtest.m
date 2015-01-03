@@ -4,9 +4,9 @@
 %calculation
 clear all;
 load('randmats');
-tic
 a=.001*a;
 b=.001*b;
+tic
 c=a*b;
-d=ones(1,length(c))*c*ones(length(c),1)
 toc
+d=ones(1,length(c))*c*ones(length(c),1)
