@@ -26,10 +26,10 @@ data = data(:, randperm(size(data,2)));
 % Split into train and test sets
 % The last row of 'data' is the median home price.
 train.X = data(1:end-1,1:400);
-train.y = data(end,1:400);
+train.y = data(end,1:400); 
 
 test.X = data(1:end-1,401:end);
-test.y = data(end,401:end);
+test.y = data(end,401:end);  %the y are the last row.
 
 m=size(train.X,2);
 n=size(train.X,1);
