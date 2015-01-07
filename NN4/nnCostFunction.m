@@ -125,7 +125,8 @@ Theta1_grad=(a0b*d1)'/m; %401*25 dC/dw1 [matrix of the partial derivitives]
 %Part 5: Regularization:  The following implements L2 regularization on the
 %  gradients.  It is calculated by taking the derivative of the cost
 %  function analytically that adding the weight to the gradient implements L2
-%  regularization.
+%  regularization.  Reg1 and Reg2 are proportional to the value of the
+%  current weights.
 
 
 %  regularized portions
