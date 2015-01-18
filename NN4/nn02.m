@@ -15,17 +15,21 @@ num_labels = 10;          % 10 labels, from 1 to 10
 
 %load('ex4data1.mat');  % training digits in 20x20pixel images
 
-% Attempting to 
+% Attempting to use the real MNIST data from Yann Lecun's site.  The
+% following code is from UFLDL site:
 % Change the filenames if you've saved the files under different names
 % On some platforms, the files might be saved as 
 % train-images.idx3-ubyte / train-labels.idx1-ubyte
-images = loadMNISTImages('train-images-idx3-ubyte');
-labels = loadMNISTLabels('train-labels-idx1-ubyte');
+images = loadMNISTImages('train-images.idx3-ubyte');
+labels = loadMNISTLabels('train-labels.idx1-ubyte');
  
 % We are using display_network from the autoencoder code
-display_network(images(:,1:100)); % Show the first 100 images
+display_network(images(:,1:100)); % Show the first 100 images.  This comes
+% from UFLDL site.
 disp(labels(1:10));
-m = size(X, 1); % size of ex4data.mat number of examples
+m = size(images, 1) % size of ex4data.mat number of examples
+
+
 
 %% ================ Initializing Pameters ================
 % The function 'randInitializeWeights.m' creates the initial weights of the 
