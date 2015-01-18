@@ -16,6 +16,7 @@ num_labels = 10;          % 10 labels, from 1 to 10
 load('ex4data1.mat');  % training digits in 20x20pixel images
 m = size(X, 1); % size of ex4data.mat number of examples
 
+
 %% ================ Initializing Pameters ================
 % The function 'randInitializeWeights.m' creates the initial weights of the 
 % neural network including the bias terms.  These are later unrolled into a
