@@ -61,6 +61,13 @@ h=a2'; % h = 5000x10; h is also the hypothesis of the NN
 
 ymatrix=zeros(length(y),num_labels); %ymatrix is inialized as a zeros matrix
 
+
+%fprintf('size of y is %fx%f\n',size(y));
+%y(1:20)
+%fprintf('size of ymatrix is %fx%f\n',size(ymatrix));
+%ymatrix(400:420,1:10)
+%pause;
+
 %idx is an index vector that specificies the locations to place a 1 based
 %on the y vector
 idx=sub2ind(size(ymatrix),1:length(y),y'); %sub2ind function does this indexing

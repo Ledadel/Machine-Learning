@@ -1,5 +1,5 @@
 % This is a 2 layer neural net with a single hidden layer to classify digits.
-
+% This actually splits the ex4data.mat into a training set and a test set
 %   ( ^_^ )
 
 %% Initialization
@@ -7,19 +7,29 @@ clear ; close all; clc  % close everything else up
 
 %% Define the size of the Network
 input_layer_size  = 400;  % 20x20 Input Images of Digits
-hidden_layer_size = 30;   % # hidden units [also changes loading params]
+hidden_layer_size = 25;   % # hidden units [also changes loading params]
 num_labels = 10;          % 10 labels, from 1 to 10
                           % (note that we have mapped "0" to label 10)
 
 %% ================ Loading Training Data ==============
 
 load('ex4data1.mat');  % training digits in 20x20pixel images
-X=X(1:3000,:);  %this shows that I can change the number of training examples
-y=y(1:3000,:);  %changing the number of training examples
-size(X)
-size(y)
-m = size(X, 1); % size of ex4data.mat number of examples
-pause;
+R=randperm(size(X,1)); % create a randomization vector for randomizing the
+% order of the training data and the labels
+%R=[1:size(X)];  % use this to make R non-random for swapping during
+%testing
+
+Xr=X(R,:);  % X random will randomize the order of the training data
+X=Xr(1:4000,:);  % using only a subset of the training examples
+Xt=Xr(4001:5000,:);  % Xt = X test set
+yr=y(R,:); % randomizing the y labels in the same way as the X training
+y=yr(1:4000,:);  % changing the number of training examples
+yt=yr(4001:5000,:); %y label TEST set, still randomized.
+
+%size(X)
+%size(y)
+m = size(X,1); % size of ex4data.mat number of examples
+%pause;
 
 %% ================ Initializing Pameters ================
 % The function 'randInitializeWeights.m' creates the initial weights of the 
@@ -47,7 +57,7 @@ hold on;
 %
 fprintf('\nTraining Neural Network... \n')
 
-options = optimset('MaxIter', 200); %do not understand how this works, but 
+options = optimset('MaxIter', 100); %do not understand how this works, but 
 %fmincg somehow
 %  Test different values of lambda
 lambda = 10;  %regularization parameter
@@ -98,8 +108,9 @@ toc
 % m: this would be nice to have a test set to see what our actual training
 % accuracy was.
 
-pred = predict(Theta1, Theta2, X);
-
-fprintf('\nTraining Set Accuracy (based on training set?): %f\n', mean(double(pred == y)) * 100);
+pred = predict(Theta1, Theta2, X); % for getting prediction accuracy the old way
+predt = predict(Theta1, Theta2, Xt); % using real test set to get prediction accuracy
+fprintf('\n(Training Set Accuracy: %f)\n', mean(double(pred == y)) * 100);
+fprintf('\nTEST Set Accuracy: %f\n', mean(double(predt == yt)) * 100);
 
 %=======

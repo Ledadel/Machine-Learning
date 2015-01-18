@@ -6,22 +6,22 @@
 clear ; close all; clc  % close everything else up
 
 %% Define the size of the Network
-input_layer_size  = 400;  % 28x28 Input Images of Digits from MNIST
-hidden_layer_size = 20;   % # hidden units [also changes loading params]
+input_layer_size  = 784;  % 28x28 Input Images of Digits from MNIST
+hidden_layer_size = 30;   % # hidden units [also changes loading params]
 num_labels = 10;          % 10 labels, from 1 to 10
                           % (note that we have mapped "0" to label 10)
 
 %% ================ Loading Training Data ==============
 
-%load('ex4data1.mat');  % training digits in 20x20pixel images
+load('ex4data1.mat');  % training digits in 20x20pixel images
 
 % Attempting to use the real MNIST data from Yann Lecun's site.  The
 % following code is from UFLDL site:
 % Change the filenames if you've saved the files under different names
 % On some platforms, the files might be saved as 
 % train-images.idx3-ubyte / train-labels.idx1-ubyte
-images = loadMNISTImages('train-images.idx3-ubyte');
-labels = loadMNISTLabels('train-labels.idx1-ubyte');
+X = loadMNISTImages('train-images.idx3-ubyte');  
+y = loadMNISTLabels('train-labels.idx1-ubyte');
  
 % We are using display_network from the autoencoder code
 %display_network(images(:,1:100)); % Show the first 100 images.  This comes
@@ -29,13 +29,15 @@ labels = loadMNISTLabels('train-labels.idx1-ubyte');
 %disp(labels(1:10));
 %m = size(images, 1); % size of training number of examples
 
-X = images';
-X=X(1:5000,1:400);
+X = X';
+X=X(1:5000,1:784);  %this should change it the the same size as original nn01
+% grabbing the first 5000 training examples
 m = size(X,1); % size of training number of examples
-size(X) % checking the size of the training set.
-y=labels(1:5000,:);
-size(y)  % checking size of labels.  this is 60,000x1
 
+%size(X) % checking the size of the training set.
+y=y(1:5000,:);
+%size(y)  % checking size of labels.  this is 60,000x1
+%pause;
 
 %% ================ Initializing Pameters ================
 % The function 'randInitializeWeights.m' creates the initial weights of the 
