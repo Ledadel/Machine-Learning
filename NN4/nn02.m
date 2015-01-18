@@ -6,7 +6,7 @@
 clear ; close all; clc  % close everything else up
 
 %% Define the size of the Network
-input_layer_size  = 400;  % 20x20 Input Images of Digits
+input_layer_size  = 784;  % 20x20 Input Images of Digits
 hidden_layer_size = 30;   % # hidden units [also changes loading params]
 num_labels = 10;          % 10 labels, from 1 to 10
                           % (note that we have mapped "0" to label 10)
@@ -24,11 +24,15 @@ images = loadMNISTImages('train-images.idx3-ubyte');
 labels = loadMNISTLabels('train-labels.idx1-ubyte');
  
 % We are using display_network from the autoencoder code
-display_network(images(:,1:100)); % Show the first 100 images.  This comes
+%display_network(images(:,1:100)); % Show the first 100 images.  This comes
 % from UFLDL site.
-disp(labels(1:10));
-m = size(images, 1) % size of ex4data.mat number of examples
+%disp(labels(1:10));
+m = size(images, 1); % size of ex4data.mat number of examples
 
+X = images';
+size(X)
+y=labels;
+size(y)
 
 
 %% ================ Initializing Pameters ================
