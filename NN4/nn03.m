@@ -10,7 +10,8 @@ input_layer_size  = 400;  % 20x20 Input Images of Digits
 hidden_layer_size = 25;   % # hidden units [also changes loading params]
 num_labels = 10;          % 10 labels, from 1 to 10
                           % (note that we have mapped "0" to label 10)
-
+dispdata=0;                  %This determines whether example data is displayed
+dispweights=1;            %0=none, 1=graph, 2=line plot, 3=both
 %% ================ Loading Training Data ==============
 
 load('ex4data1.mat');  % training digits in 20x20pixel images
@@ -18,6 +19,17 @@ R=randperm(size(X,1)); % create a randomization vector for randomizing the
 % order of the training data and the labels
 %R=[1:size(X)];  % use this to make R non-random for swapping during
 %testing
+
+
+%Visualizing 100 examples of training data
+% Randomly select 100 data points to display from the set of data points
+if dispdata == 1  %conditional to display example data
+    sel = randperm(size(X, 1),400);  %randperm selects k from 1-n interger
+    displayData(X(sel, :));
+    fprintf('Program paused. Press enter to continue.\n');
+    pause;
+end
+%------------------------------------------------
 
 Xr=X(R,:);  % X random will randomize the order of the training data
 X=Xr(1:4000,:);  % using only a subset of the training examples
@@ -60,7 +72,7 @@ fprintf('\nTraining Neural Network... \n')
 options = optimset('MaxIter', 100); %do not understand how this works, but 
 %fmincg somehow
 %  Test different values of lambda
-lambda = 10;  %regularization parameter
+lambda = 5;  %regularization parameter
 
 tic;
 % Create "short hand" for the cost function to be minimized
@@ -83,21 +95,34 @@ Theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):en
 
 %% ================= Visualize Weights and Cost Function =================
 
-% m: The following will produces a graph of the cost vs iteration
+% The following will produces a graph of the cost vs iteration
 cost=cost'; % make vector of cost history vs iteration
 costx=(1:i1)'; % create a vector of x values the number of iterations long
-figure;
+figure(2);
 plot(costx,cost, '.')
 ylabel('Cost');
 xlabel('Iterations');
 hold on;
 
-% m: The following will produce a graph of the history of the weights from
+% The following will produce a graph of the history of the weights from
 % the matrix xh (X History)
-%figure;
-%plot(xh')  % m: running this will add 4-5seconds to training.
-%hold on;
-toc
+if dispweights == 2
+    figure(3);
+    plot(xh')  % running this will add 4-5seconds to training.
+    hold on;
+end
+
+%The following will display in graphical form the value of the weights for
+%the input layer.
+if dispweights == 1
+    figure(4)
+    displayData(Theta1(:, 2:end));
+    hold on;
+    figure(5);
+    displayData(Theta2(:, 2:end));
+    hold on;
+end
+    
 
 %% ================= Part 10: Implement Predict =================
 %  After training the neural network, we would like to use it to predict
