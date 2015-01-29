@@ -13,7 +13,7 @@ num_labels = 10;          % 10 labels, from 1 to 10
 
 %% ================ Loading Training Data ==============
 
-load('ex4data1.mat');  % training digits in 20x20pixel images
+% load('ex4data1.mat');  % training digits in 20x20pixel images
 
 % Attempting to use the real MNIST data from Yann Lecun's site.  The
 % following code is from UFLDL site:
@@ -28,15 +28,16 @@ y = loadMNISTLabels('train-labels.idx1-ubyte');
 % from UFLDL site.
 %disp(labels(1:10));
 %m = size(images, 1); % size of training number of examples
-
-X = X';
-X=X(1:5000,1:784);  %this should change it the the same size as original nn01
+X=reshape(X,784,[]); %this reshapes the 28x28x[examples] value matrix from mnist
+% and converts it into a 784x[number of examples] matrix, sort of unrolled
+X=X'; % now each row is an example rather than each column.
+X=X(1:5000,:);  %this should change it the the same size as original nn01
 % grabbing the first 5000 training examples
 m = size(X,1); % size of training number of examples
 
-%size(X) % checking the size of the training set.
+size(X) % checking the size of the training set.
 y=y(1:5000,:);
-%size(y)  % checking size of labels.  this is 60,000x1
+size(y)  % checking size of labels.  this is 60,000x1
 %pause;
 
 %% ================ Initializing Pameters ================
