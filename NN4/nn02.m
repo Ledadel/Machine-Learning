@@ -1,4 +1,7 @@
-% This is a 2 layer neural net with a single hidden layer to classify digits.
+% This is a 2 layer neural net with a single hidden layer to classify
+% digits.  It works with the mnist training data.  It is a little slow and
+% so could be improved, though this could be due partially to the
+% additional pixels.
 
 %   ( ^_^ )
 
@@ -7,7 +10,7 @@ clear ; close all; clc  % close everything else up
 
 %% Define the size of the Network
 input_layer_size  = 784;  % 28x28 Input Images of Digits from MNIST
-hidden_layer_size = 30;   % # hidden units [also changes loading params]
+hidden_layer_size = 35;   % # hidden units [also changes loading params]
 num_labels = 10;          % 10 labels, from 1 to 10
                           % (note that we have mapped "0" to label 10)
 
@@ -31,8 +34,15 @@ y = loadMNISTLabels('train-labels.idx1-ubyte');
 X=reshape(X,784,[]); %this reshapes the 28x28x[examples] value matrix from mnist
 % and converts it into a 784x[number of examples] matrix, sort of unrolled
 X=X'; % now each row is an example rather than each column.
+
+
 X=X(1:5000,:);  %this should change it the the same size as original nn01
 % grabbing the first 5000 training examples
+   sel = randperm(size(X, 1),784);  %randperm selects k from 1-n interger
+    displayData(X(sel, :));
+%    fprintf('Program paused. Press enter to continue.\n');
+%    pause;
+
 m = size(X,1); % size of training number of examples
 
 size(X) % checking the size of the training set.
@@ -66,10 +76,10 @@ hold on;
 %
 fprintf('\nTraining Neural Network... \n')
 
-options = optimset('MaxIter', 200); %do not understand how this works, but 
+options = optimset('MaxIter', 100); %do not understand how this works, but 
 %fmincg somehow
 %  Test different values of lambda
-lambda = 10;  %regularization parameter
+lambda = 3;  %regularization parameter
 
 tic;
 % Create "short hand" for the cost function to be minimized
