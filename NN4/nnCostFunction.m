@@ -55,24 +55,24 @@ h=a2'; % h = 5000x10; h is also the hypothesis of the NN
 
 
 % Creates ymatrix of labels from y that has a 1 in the label column and a
-% zero everywhere else.  So ymatrix is 5000 rows, 10 columns with a 1 in the 
+% zero everywhere else.  So ymatrix is example# rows, 10 columns with a 1 in the 
 % correct label column which contains the same information as in the y
 % label vector.
+%load('ytest')
 
+%num_labels=10;
 ymatrix=zeros(length(y),num_labels); %ymatrix is inialized as a zeros matrix
 
 
-%fprintf('size of y is %fx%f\n',size(y));
-%y(1:20)
-%fprintf('size of ymatrix is %fx%f\n',size(ymatrix));
-%ymatrix(400:420,1:10)
-%pause;
-
-%idx is an index vector that specificies the locations to place a 1 based
-%on the y vector
-idx=sub2ind(size(ymatrix),1:length(y),y'); %sub2ind function does this indexing
-
-ymatrix(idx)=1; %converts the indexed spots to 1 labels
+for r=1:length(y)
+    indx=y(r);
+    if indx == 0;
+       indx=10;
+    end;
+    ymatrix(r,indx)=1;
+r=r+1;
+end
+%ymatrix(idx)=1; %converts the indexed spots to 1 labels
 
 
 %Calculates cost using cross entropy cost function
