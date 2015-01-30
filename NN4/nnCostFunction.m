@@ -2,7 +2,7 @@ function [J, grad] = nnCostFunction(nn_params, ...
                                    input_layer_size, ...
                                    hidden_layer_size, ...
                                    num_labels, ...
-                                   X, y, lambda)
+                                   X, ymatrix, lambda)
 %NNCOSTFUNCTION Implements the neural network cost function for a two layer
 %neural network which performs classification
 %   [J grad] = NNCOSTFUNCTON(nn_params, hidden_layer_size, num_labels, ...
@@ -61,18 +61,15 @@ h=a2'; % h = 5000x10; h is also the hypothesis of the NN
 %load('ytest')
 
 %num_labels=10;
-ymatrix=zeros(length(y),num_labels); %ymatrix is inialized as a zeros matrix
-
-
-for r=1:length(y)
-    indx=y(r);
-    if indx == 0;
-       indx=10;
-    end;
-    ymatrix(r,indx)=1;
-r=r+1;
-end
-%ymatrix(idx)=1; %converts the indexed spots to 1 labels
+% ymatrix=zeros(length(y),num_labels); %ymatrix is inialized as a zeros matrix
+% 
+% 
+% for i=1:length(y)
+%     indx=y(i);
+%     ymatrix(i,indx)=1;
+% i=i+1;
+% end
+% ymatrix(idx)=1; %converts the indexed spots to 1 labels
 
 
 %Calculates cost using cross entropy cost function
@@ -81,7 +78,7 @@ Jmatrix=-(ymatrix.*log(h)+(1-ymatrix).*log(1-h)); %Jmatrix (5000x10)
                                                                                       
 Jvector=Jmatrix*ones(num_labels,1); %sums up all the costs per example into a single vector
                                                 
-J=1/m*ones(1,length(y))*Jvector; %This is the average cost per example without regularization
+J=1/m*ones(1,length(ymatrix))*Jvector; %This is the average cost per example without regularization
 
 %-----------------------------------------------------------
 %Part 3: Calculating the cost with regularization.  This just calculates
